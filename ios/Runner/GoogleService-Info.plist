@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1087504584915-r6oc13vk2f5s1kscmu65k48m18jnrca8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1087504584915-r6oc13vk2f5s1kscmu65k48m18jnrca8</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDYqHJq4CQREUq2gY2eCQi8GXkpsr_BlOU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1087504584915</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.bitkod.sudokuContest</string>
+	<key>PROJECT_ID</key>
+	<string>sudokucontestbk</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sudokucontestbk.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1087504584915:ios:ee04389a20be0aed33c426</string>
+	<key>DATABASE_URL</key>
+	<string>https://sudokucontestbk.firebaseio.com</string>
+</dict>
+</plist>

@@ -1,0 +1,67 @@
+// DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
+
+abstract class  LocaleKeys {
+  static const appStrings_dashboardItems_balance = 'appStrings.dashboardItems.balance';
+  static const appStrings_dashboardItems_incomes = 'appStrings.dashboardItems.incomes';
+  static const appStrings_dashboardItems_expenses = 'appStrings.dashboardItems.expenses';
+  static const appStrings_dashboardItems_savings = 'appStrings.dashboardItems.savings';
+  static const appStrings_dashboardItems = 'appStrings.dashboardItems';
+  static const appStrings_levelChoose = 'appStrings.levelChoose';
+  static const appStrings_level1 = 'appStrings.level1';
+  static const appStrings_level2 = 'appStrings.level2';
+  static const appStrings_level3 = 'appStrings.level3';
+  static const appStrings_level4 = 'appStrings.level4';
+  static const appStrings_level5 = 'appStrings.level5';
+  static const appStrings_level6 = 'appStrings.level6';
+  static const appStrings_congratulation = 'appStrings.congratulation';
+  static const appStrings_errorSudoku = 'appStrings.errorSudoku';
+  static const appStrings_sudokuGame = 'appStrings.sudokuGame';
+  static const appStrings_hint = 'appStrings.hint';
+  static const appStrings_note = 'appStrings.note';
+  static const appStrings_gameDate = 'appStrings.gameDate';
+  static const appStrings_gameDuration = 'appStrings.gameDuration';
+  static const appStrings_takeBack = 'appStrings.takeBack';
+  static const appStrings_sudokuContestApp = 'appStrings.sudokuContestApp';
+  static const appStrings_dashboard = 'appStrings.dashboard';
+  static const appStrings_local = 'appStrings.local';
+  static const appStrings_yearly = 'appStrings.yearly';
+  static const appStrings_daily = 'appStrings.daily';
+  static const appStrings_monthly = 'appStrings.monthly';
+  static const appStrings_level = 'appStrings.level';
+  static const appStrings_duration = 'appStrings.duration';
+  static const appStrings_playerName = 'appStrings.playerName';
+  static const appStrings_remainingHint = 'appStrings.remainingHint';
+  static const appStrings_score = 'appStrings.score';
+  static const appStrings_results = 'appStrings.results';
+  static const appStrings_errorCYI = 'appStrings.errorCYI';
+  static const appStrings_welcomeTitle = 'appStrings.welcomeTitle';
+  static const appStrings_email = 'appStrings.email';
+  static const appStrings_enterEmail = 'appStrings.enterEmail';
+  static const appStrings_enterValidEmail = 'appStrings.enterValidEmail';
+  static const appStrings_password = 'appStrings.password';
+  static const appStrings_enterPassword = 'appStrings.enterPassword';
+  static const appStrings_confirmPassword = 'appStrings.confirmPassword';
+  static const appStrings_confirmPasswordMatch = 'appStrings.confirmPasswordMatch';
+  static const appStrings_name = 'appStrings.name';
+  static const appStrings_enterName = 'appStrings.enterName';
+  static const appStrings_login = 'appStrings.login';
+  static const appStrings_register = 'appStrings.register';
+  static const appStrings_profilePicUpload = 'appStrings.profilePicUpload';
+  static const appStrings_profile = 'appStrings.profile';
+  static const appStrings_signOut = 'appStrings.signOut';
+  static const appStrings_profileUpdated = 'appStrings.profileUpdated';
+  static const appStrings_update = 'appStrings.update';
+  static const appStrings_cancel = 'appStrings.cancel';
+  static const appStrings_uploadPicture = 'appStrings.uploadPicture';
+  static const appStrings_darkModeSwitch = 'appStrings.darkModeSwitch';
+  static const appStrings_languageSwitch = 'appStrings.languageSwitch';
+  static const appStrings_add = 'appStrings.add';
+  static const appStrings_clearScreen = 'appStrings.clearScreen';
+  static const appStrings_clearFilters = 'appStrings.clearFilters';
+  static const appStrings_filtersCleared = 'appStrings.filtersCleared';
+  static const appStrings_deleteConfirmation = 'appStrings.deleteConfirmation';
+  static const appStrings_delete = 'appStrings.delete';
+  static const appStrings_edit = 'appStrings.edit';
+  static const appStrings = 'appStrings';
+
+}

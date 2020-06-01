@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1087504584915",
+    "firebase_url": "https://sudokucontestbk.firebaseio.com",
+    "project_id": "sudokucontestbk",
+    "storage_bucket": "sudokucontestbk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087504584915:android:591ba19e7f810a1833c426",
+        "android_client_info": {
+          "package_name": "com.bitkod.sudokuContest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087504584915-crug1sptiv122j4rrdrig0jfgiccv1p4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUt3uTPTtagei787Alo2__fiGQLMTW6WM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087504584915-crug1sptiv122j4rrdrig0jfgiccv1p4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1087504584915-r6oc13vk2f5s1kscmu65k48m18jnrca8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bitkod.sudokuContest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
