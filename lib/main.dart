@@ -73,6 +73,7 @@ class _MyAppState extends State<MyApp> {
             '/profile': (context) => Profile(
                   userUid: isAuthenticated ? user.uid : '',
                 ),
+            /* '/deneme': (context) => FlutterFirebaseAnimate(), */
           },
         );
       }),

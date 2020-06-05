@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sudokuContest/inApp/views/flutterFirebaseAnimate.dart';
 
 import '../../core/init/locale_keys.g.dart';
 import '../../core/init/string_extensions.dart';
@@ -75,9 +76,18 @@ class _DashboardState extends BaseState<Dashboard> {
                 valueListenable: snapshot.data.listenable(),
                 builder: (context, box, _) {
                   return Scaffold(
+                    
                     appBar: _getAppBar(),
                     backgroundColor: currentTheme.primaryColorLight,
                     body: _tabController(),
+                    /* floatingActionButton: FloatingActionButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => FlutterFirebaseAnimate()),
+                        );
+                      },
+                    ), */
                   );
                 });
           return Loading();
@@ -293,13 +303,9 @@ class _DashboardState extends BaseState<Dashboard> {
             _sudokuDaily = snapshotDaily.data.documents.map((doc) {
               return Sudoku.fromFirestore(doc);
             }).toList();
-            /* _sumOfIncome = 0.0;
-              for (var i = 0; i < _incomes.length; i++) {
-                _sumOfIncome =
-                    _sumOfIncome + double.parse(_incomes[i].incomeAmount);
-              } */
+            // sort list
+            _sudokuDaily.sort((a, b) => a.score.compareTo(b.score));
             return ListView.builder(
-              //physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               padding: EdgeInsets.fromLTRB(
                 dynamicWidth(0.05),
@@ -313,7 +319,9 @@ class _DashboardState extends BaseState<Dashboard> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  color: (_sudokuDaily[index].userUid==userUid)?currentTheme.focusColor:currentTheme.primaryColorDark,
+                  color: (_sudokuDaily[index].userUid == userUid)
+                      ? currentTheme.focusColor
+                      : currentTheme.primaryColorDark,
                   elevation: 8.0,
                   shadowColor: currentTheme.primaryColorLight,
                   clipBehavior: Clip.antiAlias,
@@ -328,6 +336,10 @@ class _DashboardState extends BaseState<Dashboard> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
+                          SizedBox(
+                            width: dynamicWidth(0.05),
+                            child: Text("${(index + 1).toString()}"),
+                          ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -404,15 +416,8 @@ class _DashboardState extends BaseState<Dashboard> {
               return Sudoku.fromFirestore(doc);
             }).toList();
             // sort list
-            //_sudokuMonthly.sort((a, b) => b.duration.compareTo(a.duration));
-            
-            /* _sumOfIncome = 0.0;
-              for (var i = 0; i < _incomes.length; i++) {
-                _sumOfIncome =
-                    _sumOfIncome + double.parse(_incomes[i].incomeAmount);
-              } */
+            _sudokuMonthly.sort((a, b) => a.score.compareTo(b.score));
             return ListView.builder(
-              //physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               padding: EdgeInsets.fromLTRB(
                 dynamicWidth(0.05),
@@ -426,7 +431,9 @@ class _DashboardState extends BaseState<Dashboard> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  color: (_sudokuMonthly[index].userUid==userUid)?currentTheme.focusColor:currentTheme.primaryColorDark,
+                  color: (_sudokuMonthly[index].userUid == userUid)
+                      ? currentTheme.focusColor
+                      : currentTheme.primaryColorDark,
                   elevation: 8.0,
                   shadowColor: currentTheme.primaryColorLight,
                   clipBehavior: Clip.antiAlias,
@@ -441,6 +448,10 @@ class _DashboardState extends BaseState<Dashboard> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
+                          SizedBox(
+                            width: dynamicWidth(0.05),
+                            child: Text("${(index + 1).toString()}"),
+                          ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -515,13 +526,9 @@ class _DashboardState extends BaseState<Dashboard> {
             _sudokuYearly = snapshotYearly.data.documents.map((doc) {
               return Sudoku.fromFirestore(doc);
             }).toList();
-            /* _sumOfIncome = 0.0;
-              for (var i = 0; i < _incomes.length; i++) {
-                _sumOfIncome =
-                    _sumOfIncome + double.parse(_incomes[i].incomeAmount);
-              } */
+            //sorting
+            _sudokuYearly.sort((a, b) => a.score.compareTo(b.score));
             return ListView.builder(
-              //physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               padding: EdgeInsets.fromLTRB(
                 dynamicWidth(0.05),
@@ -535,7 +542,9 @@ class _DashboardState extends BaseState<Dashboard> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  color: (_sudokuYearly[index].userUid==userUid)?currentTheme.focusColor:currentTheme.primaryColorDark,
+                  color: (_sudokuYearly[index].userUid == userUid)
+                      ? currentTheme.focusColor
+                      : currentTheme.primaryColorDark,
                   elevation: 8.0,
                   shadowColor: currentTheme.primaryColorLight,
                   clipBehavior: Clip.antiAlias,
@@ -550,6 +559,10 @@ class _DashboardState extends BaseState<Dashboard> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
+                          SizedBox(
+                            width: dynamicWidth(0.05),
+                            child: Text("${(index + 1).toString()}"),
+                          ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.center,
