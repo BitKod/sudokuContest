@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sudokuContest/inApp/views/flutterFirebaseAnimate.dart';
 
 import '../../core/init/locale_keys.g.dart';
 import '../../core/init/string_extensions.dart';
@@ -23,6 +22,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends BaseState<Dashboard> {
   Box _sudokuBox;
+
   Future<Box> _openSudokuBox() async {
     _sudokuBox = await Hive.openBox('sudoku');
     return await Hive.openBox('sudoku');
@@ -39,6 +39,7 @@ class _DashboardState extends BaseState<Dashboard> {
   List _sudokuDaily;
   List _sudokuMonthly;
   List _sudokuYearly;
+
 
   final _kTabs = <Tab>[
     Tab(
@@ -181,12 +182,13 @@ class _DashboardState extends BaseState<Dashboard> {
   }
 
   _tabController() {
-    final _kTabPages = <Widget>[
+    List<Widget> _kTabPages = <Widget>[
       _localResultTab(),
       _dailyContestResultTab(),
       _monthlyContestResultTab(),
       _yearlyContestResultTab(),
     ];
+    
     return DefaultTabController(
       length: _kTabs.length,
       child: Scaffold(
