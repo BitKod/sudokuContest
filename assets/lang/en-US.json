@@ -21,6 +21,7 @@
         "gameDate": "Sudoku Game Date: ",
         "gameDuration": "Sudoku Solving Duration: ",
         "takeBack": "Take Back",
+        "pushForward":"Push Forward",
         "sudokuContestApp": "Sudoku Contest",
         "dashboard": "Dashboard",
         "local": "Local",
@@ -32,7 +33,8 @@
         "duration": "Duration",
         "playerName":"Player Name",
         "remainingHint":"Remaining Hint",
-        "score":"Score",
+        "score":"Score: ",
+        "sudokuReplay":"Sudoku Replay",
 
 
         "results": " Results",

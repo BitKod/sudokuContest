@@ -11,7 +11,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
 
 
   final Map<String, int> sudokuLevel = {
-    LocaleKeys.appStrings_level1.locale: 80,
+    LocaleKeys.appStrings_level1.locale: 77,
     LocaleKeys.appStrings_level2.locale: 53,
     LocaleKeys.appStrings_level3.locale: 44,
     LocaleKeys.appStrings_level4.locale: 35,

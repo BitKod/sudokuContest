@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sudokuContest/inApp/views/sudoku_game_replay.dart';
 
 import '../../core/init/locale_keys.g.dart';
 import '../../core/init/string_extensions.dart';
@@ -22,10 +23,16 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends BaseState<Dashboard> {
   Box _sudokuBox;
+  Box _sudokuReplayBox;
 
   Future<Box> _openSudokuBox() async {
     _sudokuBox = await Hive.openBox('sudoku');
     return await Hive.openBox('sudoku');
+  }
+
+  Future<Box> _openSudokuReplayBox() async {
+    _sudokuReplayBox = await Hive.openBox('sudokuReplay');
+    return await Hive.openBox('sudokuReplay');
   }
 
   Future<Box> _openCompletedSudokuBox() async {
@@ -62,6 +69,7 @@ class _DashboardState extends BaseState<Dashboard> {
   initState() {
     super.initState();
     getUserUid();
+    _openSudokuReplayBox();
     _dateDay = DateFormat('dd').format(DateTime.now());
     _dateMonth = DateFormat('MM').format(DateTime.now());
     _dateYear = DateFormat('yyyy').format(DateTime.now());
@@ -229,7 +237,34 @@ class _DashboardState extends BaseState<Dashboard> {
                     clipBehavior: Clip.antiAlias,
                     child: InkWell(
                       onTap: () {
-                        /* box.deleteAt(index); */
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            backgroundColor:currentTheme.primaryColorLight.withOpacity(0.9) ,
+                            title: Text("${LocaleKeys.appStrings_gameDate.locale}  ${item['date']}"),
+                            content:Text("${LocaleKeys.appStrings_score.locale} ${item['score']} | ${LocaleKeys.appStrings_deleteConfirmation.locale}?"),
+                            actions: <Widget>[
+                              FlatButton(
+                              onPressed: (){
+                                Navigator.pop(context,LocaleKeys.appStrings_cancel.locale);
+                              },
+                              child: Text(
+                                LocaleKeys.appStrings_cancel.locale
+                              ), 
+                              
+                              ),
+                              FlatButton(
+                              onPressed: (){
+                                box.deleteAt(index);
+                                Navigator.pop(context,LocaleKeys.appStrings_delete.locale);
+                              },
+                              child: Text(
+                                LocaleKeys.appStrings_delete.locale
+                              ), 
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(
@@ -256,6 +291,12 @@ class _DashboardState extends BaseState<Dashboard> {
                                     color: Colors.white,
                                   ),
                                 ),
+                                Text(
+                                  LocaleKeys.appStrings_score.locale,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ],
                             ),
                             Column(
@@ -272,6 +313,12 @@ class _DashboardState extends BaseState<Dashboard> {
                                   "${Duration(seconds: item['duration'])}"
                                       .split('.')
                                       .first,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  "${item['score']}",
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -328,7 +375,14 @@ class _DashboardState extends BaseState<Dashboard> {
                   shadowColor: currentTheme.primaryColorLight,
                   clipBehavior: Clip.antiAlias,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                       _sudokuReplayBox.put('sudokuSteps', _sudokuDaily[index].sudokuSteps);
+                       _sudokuReplayBox.put('userUid', _sudokuDaily[index].userUid);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => SudokuGameReplay()),
+                        );                   
+                    },
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(
                           dynamicWidth(0.05),
@@ -440,7 +494,14 @@ class _DashboardState extends BaseState<Dashboard> {
                   shadowColor: currentTheme.primaryColorLight,
                   clipBehavior: Clip.antiAlias,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                       _sudokuReplayBox.put('sudokuSteps', _sudokuMonthly[index].sudokuSteps);
+                       _sudokuReplayBox.put('userUid', _sudokuMonthly[index].userUid);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => SudokuGameReplay()),
+                        ); 
+                    },
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(
                           dynamicWidth(0.05),
@@ -551,7 +612,14 @@ class _DashboardState extends BaseState<Dashboard> {
                   shadowColor: currentTheme.primaryColorLight,
                   clipBehavior: Clip.antiAlias,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                       _sudokuReplayBox.put('sudokuSteps', _sudokuYearly[index].sudokuSteps);
+                       _sudokuReplayBox.put('userUid', _sudokuYearly[index].userUid);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => SudokuGameReplay()),
+                        ); 
+                    },
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(
                           dynamicWidth(0.05),

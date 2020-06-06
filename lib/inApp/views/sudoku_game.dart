@@ -105,7 +105,8 @@ class _SudokuGameState extends BaseState<SudokuGame> {
   // prepare Sudoku Steps for Firebase 
   List<String> _sudokuHistoryForFirebase() {
     List<String> _firebaseHistory=[];
-    _sudokuHistory.forEach((element) {
+    var sudokuFirebaseHistory = _sudokuBox.get('sudokuHistory');
+    sudokuFirebaseHistory.forEach((element) {
       Map processing=jsonDecode(element);
       var currentSudokuRow=processing['sudokuRows'];
       String savingSudoku=currentSudokuRow.toString().replaceAll(RegExp(r'[e, \][]'), '');
@@ -123,6 +124,7 @@ class _SudokuGameState extends BaseState<SudokuGame> {
     if (sudokuLastState.contains("0")) {
       _createSudokuHistory();
     } else {
+      _createSudokuHistory();
       _sudokuActive = _sudokuBox.get('sudokuActive');
       control = sudokuLastState.replaceAll(RegExp(r'[e, \][]'), '');
       message = LocaleKeys.appStrings_errorSudoku.locale;
@@ -206,7 +208,6 @@ class _SudokuGameState extends BaseState<SudokuGame> {
       appBar: _getAppBar(),
       body: Column(
         children: <Widget>[
-          FlatButton(onPressed: _sudokuHistoryForFirebase, child: Text('Test'),),
           SizedBox(height: dynamicHeight(0.005)),
           _getGameHeader(),
           _getGameArea(),

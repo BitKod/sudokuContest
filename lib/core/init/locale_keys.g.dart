@@ -21,6 +21,7 @@ abstract class  LocaleKeys {
   static const appStrings_gameDate = 'appStrings.gameDate';
   static const appStrings_gameDuration = 'appStrings.gameDuration';
   static const appStrings_takeBack = 'appStrings.takeBack';
+  static const appStrings_pushForward = 'appStrings.pushForward';
   static const appStrings_sudokuContestApp = 'appStrings.sudokuContestApp';
   static const appStrings_dashboard = 'appStrings.dashboard';
   static const appStrings_local = 'appStrings.local';
@@ -32,6 +33,7 @@ abstract class  LocaleKeys {
   static const appStrings_playerName = 'appStrings.playerName';
   static const appStrings_remainingHint = 'appStrings.remainingHint';
   static const appStrings_score = 'appStrings.score';
+  static const appStrings_sudokuReplay = 'appStrings.sudokuReplay';
   static const appStrings_results = 'appStrings.results';
   static const appStrings_errorCYI = 'appStrings.errorCYI';
   static const appStrings_welcomeTitle = 'appStrings.welcomeTitle';
