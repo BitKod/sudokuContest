@@ -59,6 +59,7 @@ class DatabaseSudokuService {
     int level,
     int hint,
     int score,
+    List<String> sudokuSteps,
   ) async {
     try {
       await collection.document(uid).collection('sudoku').document().setData({
@@ -70,6 +71,7 @@ class DatabaseSudokuService {
         "level": level,
         "hint": hint,
         "score": score,
+        "sudokuSteps":sudokuSteps,
         "createdAt": FieldValue.serverTimestamp(),
         "updatedAt": FieldValue.serverTimestamp(),
       });
