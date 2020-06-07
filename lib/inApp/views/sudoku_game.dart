@@ -102,19 +102,19 @@ class _SudokuGameState extends BaseState<SudokuGame> {
     _createSudokuHistory();
   }
 
-  // prepare Sudoku Steps for Firebase 
+  // prepare Sudoku Steps for Firebase
   List<String> _sudokuHistoryForFirebase() {
-    List<String> _firebaseHistory=[];
+    List<String> _firebaseHistory = [];
     var sudokuFirebaseHistory = _sudokuBox.get('sudokuHistory');
     sudokuFirebaseHistory.forEach((element) {
-      Map processing=jsonDecode(element);
-      var currentSudokuRow=processing['sudokuRows'];
-      String savingSudoku=currentSudokuRow.toString().replaceAll(RegExp(r'[e, \][]'), '');
+      Map processing = jsonDecode(element);
+      var currentSudokuRow = processing['sudokuRows'];
+      String savingSudoku =
+          currentSudokuRow.toString().replaceAll(RegExp(r'[e, \][]'), '');
       _firebaseHistory.add(savingSudoku);
-     });
-      return _firebaseHistory;
+    });
+    return _firebaseHistory;
   }
-
 
   // save every step
   void _saveStep() async {
@@ -156,7 +156,7 @@ class _SudokuGameState extends BaseState<SudokuGame> {
         String dateYear = DateFormat('yyyy').format(DateTime.now());
         List<String> sudokuSteps = _sudokuHistoryForFirebase();
         await DatabaseSudokuService().createSudoku(userUid, dateDay, dateMonth,
-            dateYear, duration, level, hint, score,sudokuSteps);
+            dateYear, duration, level, hint, score, sudokuSteps);
         setState(() {
           _sudokuCompleted = true;
         });
@@ -242,7 +242,7 @@ class _SudokuGameState extends BaseState<SudokuGame> {
     );
   }
 
-  Widget _getGameHeader() {
+  Text _getGameHeader() {
     return Text(
       _sudokuBox.get('level',
           defaultValue: LocaleKeys.appStrings_level2.locale),
@@ -254,7 +254,7 @@ class _SudokuGameState extends BaseState<SudokuGame> {
     );
   }
 
-  Widget _getGameArea() {
+  AspectRatio _getGameArea() {
     return AspectRatio(
       aspectRatio: 1,
       child: ValueListenableBuilder<Box>(
@@ -376,269 +376,279 @@ class _SudokuGameState extends BaseState<SudokuGame> {
     );
   }
 
-  Widget sudokuButtonArea() {
+  Expanded sudokuButtonArea() {
     return Expanded(
       child: Row(
         children: <Widget>[
+          _getButtonArea(),
+          _getNumberArea(),
+        ],
+      ),
+    );
+  }
+
+  Expanded _getButtonArea() {
+    return Expanded(
+      child: Column(
+        children: <Widget>[
           Expanded(
-            child: Column(
+            child: Row(
               children: <Widget>[
-                Expanded(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Card(
-                          color: currentTheme.primaryColorLight,
-                          margin: EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              String yx = _sudokuBox.get('yx');
-                              if (yx != "99") {
-                                int yC = int.parse(yx.substring(0, 1)),
-                                    xC = int.parse(yx.substring(1));
-                                _sudoku[yC][xC] = "0";
-                                _sudokuBox.put('sudokuRows', _sudoku);
-                                _saveStep();
-                              }
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.delete,
-                                  color: currentTheme.errorColor,
-                                ),
-                                Text(
-                                  LocaleKeys.appStrings_delete.locale,
-                                  style:
-                                      TextStyle(color: currentTheme.errorColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: ValueListenableBuilder<Box>(
-                          valueListenable:
-                              _sudokuBox.listenable(keys: ['hint']),
-                          builder: (context, box, widget) {
-                            return Card(
-                              color: currentTheme.primaryColorLight,
-                              margin: EdgeInsets.all(8.0),
-                              child: InkWell(
-                                onTap: () {
-                                  String yx = box.get('yx');
-
-                                  if (yx != "99" && box.get('hint') > 0) {
-                                    int yC = int.parse(yx.substring(0, 1)),
-                                        xC = int.parse(yx.substring(1));
-
-                                    String solutionString =
-                                        box.get('sudokuActive');
-
-                                    List solutionSudoku = List.generate(
-                                      9,
-                                      (i) => List.generate(
-                                        9,
-                                        (j) => solutionString
-                                            .substring(i * 9, (i + 1) * 9)
-                                            .split('')[j],
-                                      ),
-                                    );
-
-                                    if (_sudoku[yC][xC] !=
-                                        solutionSudoku[yC][xC]) {
-                                      _sudoku[yC][xC] = solutionSudoku[yC][xC];
-                                      box.put('sudokuRows', _sudoku);
-
-                                      box.put('hint', box.get('hint') - 1);
-                                      _saveStep();
-                                    }
-                                  }
-                                },
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.lightbulb_outline,
-                                          color: currentTheme.errorColor,
-                                        ),
-                                        Text(
-                                          ": ${box.get('hint')}",
-                                          style: TextStyle(
-                                              color: currentTheme.errorColor),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      LocaleKeys.appStrings_hint.locale,
-                                      style: TextStyle(
-                                          color: currentTheme.errorColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Card(
-                          color: _note
-                              ? currentTheme.primaryColorLight.withOpacity(0.6)
-                              : currentTheme.primaryColorLight,
-                          margin: EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () => setState(() => _note = !_note),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.note_add,
-                                  color: currentTheme.errorColor,
-                                ),
-                                Text(
-                                  LocaleKeys.appStrings_note.locale,
-                                  style:
-                                      TextStyle(color: currentTheme.errorColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Card(
-                          color: currentTheme.primaryColorLight,
-                          margin: EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              if (_sudokuHistory.length > 0) {
-                                _sudokuHistory.removeLast();
-                                Map former = jsonDecode(_sudokuHistory.last);
-                                _sudokuBox.put(
-                                    'sudokuRows', former['sudokuRows']);
-                                _sudokuBox.put('yx', former['yx']);
-                                _sudokuBox.put('hint', former['hint']);
-
-                                _sudokuBox.put('sudokuHistory', _sudokuHistory);
-                                print(
-                                    "formersudokuRows: ${former['sudokuRows']}");
-                              }
-
-                              print("take back card: ${_sudokuHistory.length}");
-                              print(
-                                  "sudokuRows: ${_sudokuBox.get('sudokuRows')}");
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.undo,
-                                  color: currentTheme.errorColor,
-                                ),
-                                Text(
-                                  LocaleKeys.appStrings_takeBack.locale,
-                                  style:
-                                      TextStyle(color: currentTheme.errorColor),
-                                ),
-                                ValueListenableBuilder<Box>(
-                                  valueListenable: _sudokuBox
-                                      .listenable(keys: ['sudokuHistory']),
-                                  builder: (context, box, _) {
-                                    print("${box.get('sudokuHistory').length}");
-                                    return Text(
-                                      //"${box.get('sudokuHistory', defaultValue: []).length}",
-                                      "${box.get('sudokuHistory', defaultValue: []).length - 1}",
-                                      style: TextStyle(
-                                          color: currentTheme.errorColor),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                _getDeleteButton(),
+                _getHintButton(),
               ],
             ),
           ),
           Expanded(
-            child: Column(
+            child: Row(
               children: <Widget>[
-                for (int i = 1; i < 10; i += 3)
-                  Expanded(
-                    child: Row(
-                      children: <Widget>[
-                        for (int j = 0; j < 3; j++)
-                          Expanded(
-                            child: Card(
-                              color: currentTheme.primaryColorLight,
-                              shape: CircleBorder(),
-                              child: InkWell(
-                                onTap: () {
-                                  String yx = _sudokuBox.get('yx');
-                                  if (yx != "99") {
-                                    int yC = int.parse(yx.substring(0, 1)),
-                                        xC = int.parse(yx.substring(1));
-                                    if (!_note)
-                                      _sudoku[yC][xC] = "${i + j}";
-                                    else {
-                                      if ("${_sudoku[yC][xC]}".length < 8)
-                                        _sudoku[yC][xC] = "000000000";
+                _getNoteButton(),
+                _getTakeBackButton(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-                                      _sudoku[yC][xC] =
-                                          "${_sudoku[yC][xC]}".replaceRange(
-                                        i + j - 1,
-                                        i + j,
-                                        "${_sudoku[yC][xC]}".substring(
-                                                    i + j - 1, i + j) ==
-                                                "${i + j}"
-                                            ? "0"
-                                            : "${i + j}",
-                                      );
-                                    }
+  Expanded _getDeleteButton() {
+    return Expanded(
+      child: Card(
+        color: currentTheme.primaryColorLight,
+        margin: EdgeInsets.all(8.0),
+        child: InkWell(
+          onTap: () {
+            String yx = _sudokuBox.get('yx');
+            if (yx != "99") {
+              int yC = int.parse(yx.substring(0, 1)),
+                  xC = int.parse(yx.substring(1));
+              _sudoku[yC][xC] = "0";
+              _sudokuBox.put('sudokuRows', _sudoku);
+              _saveStep();
+            }
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.delete,
+                color: currentTheme.errorColor,
+              ),
+              Text(
+                LocaleKeys.appStrings_delete.locale,
+                style: TextStyle(color: currentTheme.errorColor),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-                                    _sudokuBox.put('sudokuRows', _sudoku);
-                                    _saveStep();
-                                    print("${i + j}");
-                                  }
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.all(3.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${i + j}",
-                                    style: TextStyle(
-                                      color: currentTheme.errorColor,
-                                      fontSize: 24.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
+  Expanded _getHintButton() {
+    return Expanded(
+      child: ValueListenableBuilder<Box>(
+        valueListenable: _sudokuBox.listenable(keys: ['hint']),
+        builder: (context, box, widget) {
+          return Card(
+            color: currentTheme.primaryColorLight,
+            margin: EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                String yx = box.get('yx');
+
+                if (yx != "99" && box.get('hint') > 0) {
+                  int yC = int.parse(yx.substring(0, 1)),
+                      xC = int.parse(yx.substring(1));
+
+                  String solutionString = box.get('sudokuActive');
+
+                  List solutionSudoku = List.generate(
+                    9,
+                    (i) => List.generate(
+                      9,
+                      (j) => solutionString
+                          .substring(i * 9, (i + 1) * 9)
+                          .split('')[j],
+                    ),
+                  );
+
+                  if (_sudoku[yC][xC] != solutionSudoku[yC][xC]) {
+                    _sudoku[yC][xC] = solutionSudoku[yC][xC];
+                    box.put('sudokuRows', _sudoku);
+
+                    box.put('hint', box.get('hint') - 1);
+                    _saveStep();
+                  }
+                }
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.lightbulb_outline,
+                        color: currentTheme.errorColor,
+                      ),
+                      Text(
+                        ": ${box.get('hint')}",
+                        style: TextStyle(color: currentTheme.errorColor),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    LocaleKeys.appStrings_hint.locale,
+                    style: TextStyle(color: currentTheme.errorColor),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Expanded _getNoteButton() {
+    return Expanded(
+      child: Card(
+        color: _note
+            ? currentTheme.primaryColorLight.withOpacity(0.6)
+            : currentTheme.primaryColorLight,
+        margin: EdgeInsets.all(8.0),
+        child: InkWell(
+          onTap: () => setState(() => _note = !_note),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.note_add,
+                color: currentTheme.errorColor,
+              ),
+              Text(
+                LocaleKeys.appStrings_note.locale,
+                style: TextStyle(color: currentTheme.errorColor),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Expanded _getTakeBackButton() {
+    return Expanded(
+      child: Card(
+        color: currentTheme.primaryColorLight,
+        margin: EdgeInsets.all(8.0),
+        child: InkWell(
+          onTap: () {
+            if (_sudokuHistory.length > 0) {
+              _sudokuHistory.removeLast();
+              Map former = jsonDecode(_sudokuHistory.last);
+              _sudokuBox.put('sudokuRows', former['sudokuRows']);
+              _sudokuBox.put('yx', former['yx']);
+              _sudokuBox.put('hint', former['hint']);
+
+              _sudokuBox.put('sudokuHistory', _sudokuHistory);
+              print("formersudokuRows: ${former['sudokuRows']}");
+            }
+
+            print("take back card: ${_sudokuHistory.length}");
+            print("sudokuRows: ${_sudokuBox.get('sudokuRows')}");
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.undo,
+                color: currentTheme.errorColor,
+              ),
+              Text(
+                LocaleKeys.appStrings_takeBack.locale,
+                style: TextStyle(color: currentTheme.errorColor),
+              ),
+              ValueListenableBuilder<Box>(
+                valueListenable: _sudokuBox.listenable(keys: ['sudokuHistory']),
+                builder: (context, box, _) {
+                  print("${box.get('sudokuHistory').length}");
+                  return Text(
+                    //"${box.get('sudokuHistory', defaultValue: []).length}",
+                    "${box.get('sudokuHistory', defaultValue: []).length - 1}",
+                    style: TextStyle(color: currentTheme.errorColor),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Expanded _getNumberArea() {
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          for (int i = 1; i < 10; i += 3)
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  for (int j = 0; j < 3; j++)
+                    Expanded(
+                      child: Card(
+                        color: currentTheme.primaryColorLight,
+                        shape: CircleBorder(),
+                        child: InkWell(
+                          onTap: () {
+                            String yx = _sudokuBox.get('yx');
+                            if (yx != "99") {
+                              int yC = int.parse(yx.substring(0, 1)),
+                                  xC = int.parse(yx.substring(1));
+                              if (!_note)
+                                _sudoku[yC][xC] = "${i + j}";
+                              else {
+                                if ("${_sudoku[yC][xC]}".length < 8)
+                                  _sudoku[yC][xC] = "000000000";
+
+                                _sudoku[yC][xC] =
+                                    "${_sudoku[yC][xC]}".replaceRange(
+                                  i + j - 1,
+                                  i + j,
+                                  "${_sudoku[yC][xC]}"
+                                              .substring(i + j - 1, i + j) ==
+                                          "${i + j}"
+                                      ? "0"
+                                      : "${i + j}",
+                                );
+                              }
+
+                              _sudokuBox.put('sudokuRows', _sudoku);
+                              _saveStep();
+                              print("${i + j}");
+                            }
+                          },
+                          child: Container(
+                            margin: EdgeInsets.all(3.0),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${i + j}",
+                              style: TextStyle(
+                                color: currentTheme.errorColor,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                      ],
+                        ),
+                      ),
                     ),
-                  )
-              ],
-            ),
-          )
+                ],
+              ),
+            )
         ],
       ),
     );
