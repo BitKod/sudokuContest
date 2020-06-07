@@ -38,12 +38,15 @@ class DatabaseSudokuService {
     String dateDay,
     String dateMonth,
     String dateYear,
+    
     //String level
   ) {
     return Firestore.instance.collectionGroup('sudoku')
         .where('dateDay', isEqualTo: dateDay)
         .where('dateMonth', isEqualTo: dateMonth)
         .where('dateYear', isEqualTo: dateYear)
+        //.orderBy('score')
+        .limit(30)
         .snapshots();
   }
 
