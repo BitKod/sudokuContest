@@ -10,9 +10,9 @@ class ImagePath {
   String lottiePath(String text) => "assets/lottie/$text.json";
 
   //can be downloaded as assets
-  String welcomeBackgroundNetwork = 'https://i.picsum.photos/id/1/450/800.jpg?blur=5';
+  String welcomeBackgroundNetwork = 'https://www.picsum.photos/id/1/450/800.jpg?blur=5';
 
-  String dashboardBackgroundNetwork = 'https://i.picsum.photos/id/1031/450/800.jpg?blur=5';
+  String dashboardBackgroundNetwork = 'https://www.picsum.photos/id/1031/450/800.jpg?blur=5';
 
   String profileInitialNetwork='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR8QMTmCUwPeDMiZ0pZFQqQkHCQvcWY7ECb_Lcfc4QqqS2PL9rb&usqp=CAU';
 
