@@ -12,7 +12,6 @@ import 'core/theme/themeManager.dart';
 import 'inApp/models/user.dart';
 import 'inApp/services/auth.dart';
 import 'inApp/views/dashboard.dart';
-import 'inApp/views/flutterFirebaseAnimate.dart';
 import 'inApp/views/profile.dart';
 import 'inApp/views/welcome.dart';
 
