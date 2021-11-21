@@ -26,9 +26,7 @@ class DatabaseSudokuService {
   }
 
     Stream<List<Sudoku>> get sudoku {
-    return collection
-        .document(uid)
-        .collection('sudoku')
+    return Firestore.instance.collectionGroup('sudoku')
         .snapshots()
         .map(_sudokuListFromSnapshot);
   }
@@ -39,7 +37,7 @@ class DatabaseSudokuService {
     String dateMonth,
     String dateYear,
     
-    //String level
+  //String level
   ) {
     return Firestore.instance.collectionGroup('sudoku')
         .where('dateDay', isEqualTo: dateDay)
@@ -59,6 +57,7 @@ class DatabaseSudokuService {
     int level,
     int hint,
     int score,
+    List<String> sudokuSteps,
   ) async {
     try {
       await collection.document(uid).collection('sudoku').document().setData({
@@ -70,6 +69,7 @@ class DatabaseSudokuService {
         "level": level,
         "hint": hint,
         "score": score,
+        "sudokuSteps":sudokuSteps,
         "createdAt": FieldValue.serverTimestamp(),
         "updatedAt": FieldValue.serverTimestamp(),
       });

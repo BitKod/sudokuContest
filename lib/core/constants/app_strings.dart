@@ -24,6 +24,7 @@ class AppStrings {
   String hint='Hint';
   String note='Note';
   String takeBack='Take Back';
+  String pushForward='Push Forward';
 
   String level='Game Level';
   String duration='Duration';
@@ -60,6 +61,8 @@ class AppStrings {
   String results = " Results";
   String gameDate="Sudoku Game Date: ";
   String gameDuration="Sudoku Solving Duration: ";
+
+  String sudokuReplay="Sudoku Replay";
 
   //profile.dart
   String profilePicUpload = 'Profile Picture Uploaded';

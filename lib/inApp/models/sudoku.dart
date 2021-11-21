@@ -12,6 +12,7 @@ class Sudoku extends BaseModel{
     this.level,
     this.hint,
     this.score,
+    this.sudokuSteps,
     this.createdAt,
     this.updatedAt,
   });
@@ -26,6 +27,7 @@ class Sudoku extends BaseModel{
         level = document['level'],
         hint=document['hint'],
         score=document['score'],
+        sudokuSteps=document['sudokuSteps'],
         createdAt = document['createdAt'],
         updatedAt = document['updatedAt'];
 
@@ -38,6 +40,7 @@ class Sudoku extends BaseModel{
   final int level;
   final int hint;
   final int score;
+  final List sudokuSteps;
   final Timestamp createdAt;
   final Timestamp updatedAt;
 
